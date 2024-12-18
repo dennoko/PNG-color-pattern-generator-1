@@ -13,13 +13,12 @@ def adjust_image_color(image_path, hue_steps=10, saturation_steps=3):
     :param saturation_steps: 彩度の段階数
     :return: 生成された画像のパスのリスト
     """
+    print("processing image:", image_path)
     # 画像を開く
     img = Image.open(image_path).convert('RGBA')
     
     # 画像データを取得
     data = img.getdata()
-    
-    generated_images = []
     
     # 色相と彩度のステップを計算
     hue_increment = 360 / hue_steps
@@ -71,9 +70,9 @@ def adjust_image_color(image_path, hue_steps=10, saturation_steps=3):
             
             output_path = os.path.join(output_dir, f"{name}_hue{hue_step}_sat{sat_step}.png")
             new_img.save(output_path)
-            generated_images.append(output_path)
+            print("generated image:", output_path)
     
-    return generated_images
+    return 
 
 def process_input_folder(input_folder='input', hue_steps=10, saturation_steps=3):
     """
@@ -92,7 +91,7 @@ def process_input_folder(input_folder='input', hue_steps=10, saturation_steps=3)
             image_path = os.path.join(input_folder, filename)
             
             # 画像の色バリエーションを生成
-            generated_images = adjust_image_color(
+            adjust_image_color(
                 image_path, 
                 hue_steps=hue_steps, 
                 saturation_steps=saturation_steps
